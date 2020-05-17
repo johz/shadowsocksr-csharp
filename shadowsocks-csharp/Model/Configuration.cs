@@ -40,6 +40,7 @@ namespace Shadowsocks.Model
         BypassLan,
         BypassLanAndChina,
         BypassLanAndNotChina,
+        BypassAll,
         UserCustom = 16,
     }
 

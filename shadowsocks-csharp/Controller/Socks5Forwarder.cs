@@ -37,7 +37,7 @@ namespace Shadowsocks.Controller
             {
                 if (_config.proxyEnable)
                 {
-                    new Handler().Start(_config, _IPRange, firstPacket, length, socket, local_sendback_protocol, handle == 2);
+                    new Handler().Start(_config, _IPRange, firstPacket, length, socket, local_sendback_protocol, handle == CONNECT_LOCALPROXY);
                 }
                 else
                 {
@@ -73,6 +73,10 @@ namespace Shadowsocks.Controller
                         }
                         else
                         {
+                            if (_config.proxyRuleMode == (int)ProxyRuleMode.BypassAll)
+                            {
+                                return CONNECT_DIRECT;
+                            }
                             if ((_config.proxyRuleMode == (int)ProxyRuleMode.BypassLanAndChina || _config.proxyRuleMode == (int)ProxyRuleMode.BypassLanAndNotChina) && _IPRange != null || _config.proxyRuleMode == (int)ProxyRuleMode.UserCustom)
                             {
                                 if (!IPAddress.TryParse(host, out ipAddress))

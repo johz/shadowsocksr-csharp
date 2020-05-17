@@ -51,6 +51,7 @@ namespace Shadowsocks.View
         private MenuItem ruleBypassChina;
         private MenuItem ruleBypassNotChina;
         private MenuItem ruleUser;
+        private MenuItem ruleNone;
         private MenuItem ruleDisableBypass;
 
         private MenuItem SeperatorItem;
@@ -258,6 +259,7 @@ namespace Shadowsocks.View
                     ruleBypassChina = CreateMenuItem("Bypass LAN && China", new EventHandler(this.RuleBypassChinaItem_Click)),
                     ruleBypassNotChina = CreateMenuItem("Bypass LAN && not China", new EventHandler(this.RuleBypassNotChinaItem_Click)),
                     ruleUser = CreateMenuItem("User custom", new EventHandler(this.RuleUserItem_Click)),
+                    ruleNone = CreateMenuItem("None Proxy", new EventHandler(this.RuleNoneItem_Click)),
                     new MenuItem("-"),
                     ruleDisableBypass = CreateMenuItem("Disable bypass", new EventHandler(this.RuleBypassDisableItem_Click)),
                 }),
@@ -664,6 +666,7 @@ namespace Shadowsocks.View
             ruleBypassChina.Checked = config.proxyRuleMode == (int)ProxyRuleMode.BypassLanAndChina;
             ruleBypassNotChina.Checked = config.proxyRuleMode == (int)ProxyRuleMode.BypassLanAndNotChina;
             ruleUser.Checked = config.proxyRuleMode == (int)ProxyRuleMode.UserCustom;
+            ruleNone.Checked = config.proxyRuleMode == (int)ProxyRuleMode.BypassAll;
         }
 
         private void LoadCurrentConfiguration()
@@ -1003,7 +1006,7 @@ namespace Shadowsocks.View
 
         private void AboutItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://breakwa11.github.io");
+            Process.Start("https://#");
         }
 
         private void DonateItem_Click(object sender, EventArgs e)
@@ -1082,6 +1085,11 @@ namespace Shadowsocks.View
         private void RuleUserItem_Click(object sender, EventArgs e)
         {
             controller.ToggleRuleMode((int)ProxyRuleMode.UserCustom);
+        }
+
+        private void RuleNoneItem_Click(object sender, EventArgs e)
+        {
+            controller.ToggleRuleMode((int)ProxyRuleMode.BypassAll);
         }
 
         private void RuleBypassDisableItem_Click(object sender, EventArgs e)
