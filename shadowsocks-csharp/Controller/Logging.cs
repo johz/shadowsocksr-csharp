@@ -86,24 +86,34 @@ namespace Shadowsocks.Controller
             }
             OpenLogFile();
         }
+        public static int GetLineNum()
+        {
+            System.Diagnostics.StackTrace st = new System.Diagnostics.StackTrace(2, true);
+            return st.GetFrame(0).GetFileLineNumber();
+        }
 
+        public static string GetMethods()
+        {
+            System.Diagnostics.StackTrace st = new System.Diagnostics.StackTrace(2, true);
+            return st.GetFrame(0).GetMethod().Name;
+        }
         public static void Error(object o)
         {
             Log(LogLevel.Error, o);
-            System.Diagnostics.Debug.WriteLine($@"[{DateTime.Now}] ERROR {o}");
+            System.Diagnostics.Debug.WriteLine($@"[{DateTime.Now}] {GetMethods()} {GetLineNum()} ERROR {o}");
         }
 
         public static void Info(object o)
         {
             Log(LogLevel.Info, o);
-            System.Diagnostics.Debug.WriteLine($@"[{DateTime.Now}] INFO  {o}");
+            System.Diagnostics.Debug.WriteLine($@"[{DateTime.Now}] {GetMethods()} {GetLineNum()} INFO  {o}");
         }
 
         [Conditional("DEBUG")]
         public static void Debug(object o)
         {
             Log(LogLevel.Debug, o);
-            System.Diagnostics.Debug.WriteLine($@"[{DateTime.Now}] DEBUG {o}");
+            System.Diagnostics.Debug.WriteLine($@"[{DateTime.Now}]  {GetMethods()} {GetLineNum()} DEBUG {o}");
         }
 
         private static string ToString(StackFrame[] stacks)

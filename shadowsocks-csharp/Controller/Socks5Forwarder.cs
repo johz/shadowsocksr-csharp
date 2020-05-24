@@ -52,6 +52,8 @@ namespace Shadowsocks.Controller
         {
             if (length >= 7 && _config.proxyRuleMode != (int)ProxyRuleMode.Disable)
             {
+                Logging.Info("jline 55 IsHandle _firstPacket " + firstPacket[0].ToString());
+
                 IPAddress ipAddress = null;
                 if (firstPacket[0] == 1)
                 {
@@ -249,6 +251,8 @@ namespace Shadowsocks.Controller
                     IPAddress ipAddress = null;
                     int _targetPort = 0;
                     {
+                        Logging.Info(" connect _firstPacket " + _firstPacket[0].ToString()  );
+
                         if (_firstPacket[0] == 1)
                         {
                             byte[] addr = new byte[4];
